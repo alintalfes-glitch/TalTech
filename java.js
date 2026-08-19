@@ -35,35 +35,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========== SCROLL: NAVBAR + BUTON TOP + SCROLLSPY ==========
+    // ========== SCROLL: NAVBAR + BUTON TOP + SCROLLSPY (cu throttling) ==========
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-        // Navbar background la scroll
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                // Navbar background la scroll
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
 
-        // Buton scroll-to-top
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add('visible');
-        } else {
-            scrollTopBtn.classList.remove('visible');
-        }
+                // Buton scroll-to-top
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
 
-        // Scrollspy - evidențiază link-ul activ
-        const sections = document.querySelectorAll('section[id]');
-        sections.forEach(section => {
-            const top = section.offsetTop - 100;
-            const bottom = top + section.offsetHeight;
-            const scrollPos = window.scrollY;
-            const id = section.getAttribute('id');
-            const correspondingLink = document.querySelector(`.nav-link[href="#${id}"]`);
-            if (correspondingLink && scrollPos >= top && scrollPos < bottom) {
-                navLinks.forEach(l => l.classList.remove('active'));
-                correspondingLink.classList.add('active');
-            }
-        });
+                // Scrollspy - evidențiază link-ul activ
+                const sections = document.querySelectorAll('section[id]');
+                sections.forEach(section => {
+                    const top = section.offsetTop - 100;
+                    const bottom = top + section.offsetHeight;
+                    const scrollPos = window.scrollY;
+                    const id = section.getAttribute('id');
+                    const correspondingLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                    if (correspondingLink && scrollPos >= top && scrollPos < bottom) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        correspondingLink.classList.add('active');
+                    }
+                });
+
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 
     // ========== SCROLL TO TOP ==========

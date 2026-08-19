@@ -9,18 +9,17 @@
 
 :root {
     /* Light Mode */
-    --bg-start: #F8F1E9;      /* bej cald */
-    --bg-end: #E8F1F8;        /* albastru deschis */
+    --bg-start: #F8F1E9;
+    --bg-end: #E8F1F8;
     --bg-card: #FFFFFF;
     --text-primary: #1E293B;
     --text-secondary: #64748B;
     --text-muted: #94A3B8;
-    --accent: #E89B2D;        /* portocaliu cald */
+    --accent: #E89B2D;
     --accent-hover: #D98B12;
     --blue: #3B82F6;
     --green: #10B981;
     --orange: #F59E0B;
-    /* Variabile RGB pentru opacitate */
     --accent-rgb: 232, 155, 45;
     --blue-rgb: 59, 130, 246;
     --green-rgb: 16, 185, 129;
@@ -48,7 +47,6 @@
     --blue: #60A5FA;
     --green: #34D399;
     --orange: #FBBF24;
-    /* Variabile RGB pentru dark mode */
     --accent-rgb: 232, 155, 45;
     --blue-rgb: 96, 165, 250;
     --green-rgb: 52, 211, 153;
@@ -425,6 +423,32 @@ img {
     flex-wrap: wrap;
 }
 
+/* ========== HERO STATS ========== */
+.hero-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-stat .stat-number {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.hero-stat .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
 /* ========== SERVICII ========== */
 .services-grid {
     display: grid;
@@ -495,6 +519,12 @@ img {
     font-size: 0.8rem;
     font-weight: 500;
     border: 1px solid rgba(var(--accent-rgb), 0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tech-list li:hover {
+    transform: scale(1.05);
+    background: rgba(var(--accent-rgb), 0.15);
 }
 
 /* ========== DESPRE ========== */
@@ -549,6 +579,12 @@ img {
     font-size: 0.9rem;
     font-weight: 500;
     border: 1px solid rgba(var(--accent-rgb), 0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tech-tag:hover {
+    transform: scale(1.05);
+    background: rgba(var(--accent-rgb), 0.15);
 }
 
 /* ========== PROCES ========== */
@@ -556,6 +592,25 @@ img {
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
+    position: relative;
+}
+
+/* Conector vizual între pași (doar desktop) */
+@media screen and (min-width: 768px) {
+    .process-grid::before {
+        content: '';
+        position: absolute;
+        top: 55px;
+        left: 12.5%;
+        width: 75%;
+        border-top: 1px dashed var(--border-light);
+        z-index: 0;
+    }
+    .process-step {
+        position: relative;
+        z-index: 1;
+        background: var(--bg-card);
+    }
 }
 
 .process-step {
@@ -618,6 +673,12 @@ img {
     color: var(--text-secondary);
 }
 
+.response-time {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
 /* ========== FOOTER ========== */
 .footer {
     background: var(--footer-bg);
@@ -630,8 +691,24 @@ img {
 
 .footer-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     text-align: center;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: var(--text-secondary);
+    transition: color var(--transition);
+}
+
+.footer-social a:hover {
+    color: var(--accent);
 }
 
 /* ========== FLOATING BUTTONS ========== */
@@ -701,6 +778,23 @@ img {
     border-radius: 4px;
 }
 
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 20px;
+    z-index: 1001;
+    transition: top 0.3s ease;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: none;
+}
+
 /* ========== RESPONSIVE ========== */
 @media screen and (min-width: 480px) {
     .services-grid {
@@ -720,6 +814,12 @@ img {
     }
     .process-grid {
         grid-template-columns: repeat(4, 1fr);
+    }
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
     }
 }
 
@@ -767,6 +867,12 @@ img {
     }
     .contact-content {
         padding: 25px;
+    }
+    .hero-stats {
+        gap: 20px;
+    }
+    .hero-stat .stat-number {
+        font-size: 1.5rem;
     }
 }
 

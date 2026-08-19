@@ -8,6 +8,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const hiddenElements = document.querySelectorAll('.hidden');
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle?.querySelector('.theme-icon');
+    const loader = document.getElementById('loader');
+    const customCursor = document.getElementById('custom-cursor');
+    const liveChat = document.getElementById('live-chat');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const testimonialTrack = document.getElementById('testimonial-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+
+    // ========== LOADER ==========
+    window.addEventListener('load', () => {
+        loader.classList.add('hidden');
+        // După 0.5s eliminăm loader-ul din DOM
+        setTimeout(() => loader.remove(), 500);
+    });
+
+    // ========== CUSTOM CURSOR ==========
+    document.addEventListener('mousemove', (e) => {
+        customCursor.style.left = e.clientX + 'px';
+        customCursor.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, .btn, .service-card, .faq-question')) {
+            customCursor.classList.add('hover');
+        } else {
+            customCursor.classList.remove('hover');
+        }
+    });
 
     // ========== MENIU HAMBURGER ==========
     if (hamburger && navMenu) {
@@ -34,9 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========== SCROLL: NAVBAR + BUTON TOP + SCROLLSPY (cu throttling) ==========
+    // ========== SCROLL: NAVBAR + BUTON TOP + SCROLLSPY (throttle) ==========
     let ticking = false;
-
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
@@ -76,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ========== ANIMAȚII LA SCROLL (Intersection Observer) ==========
+    // ========== ANIMAȚII LA SCROLL ==========
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -91,7 +121,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hiddenElements.forEach(el => observer.observe(el));
 
-    // ========== THEME TOGGLE (LIGHT/DARK) ==========
+    // ========== ANIMARE NUMERE HERO-STATS ==========
+    const statNumbers = document.querySelectorAll('.hero-stat .stat-number[data-counter]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-counter'), 10);
+                const duration = 2000;
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * target);
+                    el.textContent = value;
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(num => counterObserver.observe(num));
+
+    // ========== THEME TOGGLE ==========
     if (themeToggle) {
         const savedTheme = localStorage.getItem('taltech-theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -116,6 +175,65 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('taltech-theme', newTheme);
         });
     }
+
+    // ========== SLIDER TESTIMONIALE ==========
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlider() {
+        if (totalSlides === 0) return;
+        const slideWidth = slides[0].clientWidth;
+        testimonialTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlider();
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    let autoPlay = setInterval(nextSlide, 5000);
+    const sliderContainer = document.querySelector('.testimonial-slider');
+    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    sliderContainer.addEventListener('mouseleave', () => {
+        autoPlay = setInterval(nextSlide, 5000);
+    });
+
+    window.addEventListener('resize', updateSlider);
+    updateSlider();
+
+    // ========== FAQ ACCORDION ==========
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+
+    // ========== LIVE CHAT ==========
+    liveChat.addEventListener('click', () => {
+        window.open('https://wa.me/alin.talfes', '_blank', 'noopener');
+    });
+
+    // ========== FORMULAR CONTACT ==========
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // PLACEHOLDER: înlocuiește cu integrarea Formspree sau alt serviciu
+        // Ex: fetch('https://formspree.io/f/yourFormID', { method: 'POST', body: new FormData(contactForm) })
+        // Pentru acum simulăm succesul
+        formSuccess.hidden = false;
+        contactForm.reset();
+        setTimeout(() => {
+            formSuccess.hidden = true;
+        }, 5000);
+    });
 
     // ========== ÎNCHIDE MENIU LA RESIZE ==========
     window.addEventListener('resize', () => {

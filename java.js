@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
             }
-            // Închide meniul mobil
             navMenu.classList.remove('active');
             hamburger.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
@@ -41,21 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                // Navbar background la scroll
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
                     navbar.classList.remove('scrolled');
                 }
 
-                // Buton scroll-to-top
                 if (window.scrollY > 300) {
                     scrollTopBtn.classList.add('visible');
                 } else {
                     scrollTopBtn.classList.remove('visible');
                 }
 
-                // Scrollspy - evidențiază link-ul activ
                 const sections = document.querySelectorAll('section[id]');
                 sections.forEach(section => {
                     const top = section.offsetTop - 100;
@@ -85,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Animație o singură dată
+                observer.unobserve(entry.target);
             }
         });
     }, {
@@ -97,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== THEME TOGGLE (LIGHT/DARK) ==========
     if (themeToggle) {
-        // Verifică preferința salvată sau preferința sistemului
         const savedTheme = localStorage.getItem('taltech-theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -108,14 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Setare inițială
         if (savedTheme) {
             applyTheme(savedTheme);
         } else {
             applyTheme(prefersDark ? 'dark' : 'light');
         }
 
-        // Toggle pe click
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -124,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ========== ÎNCHIDE MENIU LA RESIZE (PENTRU DESKTOP) ==========
+    // ========== ÎNCHIDE MENIU LA RESIZE ==========
     window.addEventListener('resize', () => {
         if (window.innerWidth > 767) {
             navMenu.classList.remove('active');

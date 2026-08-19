@@ -7,19 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const scrollTopBtn = document.getElementById('scroll-top');
     const hiddenElements = document.querySelectorAll('.hidden');
-    const testimonialTrack = document.getElementById('testimonial-track');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const slides = document.querySelectorAll('.testimonial-slide');
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-
-    // Funcție pentru actualizarea slider-ului
-    function updateSlider() {
-        if (totalSlides === 0) return;
-        const slideWidth = slides[0].clientWidth;
-        testimonialTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-    }
 
     // Meniu hamburger
     hamburger.addEventListener('click', () => {
@@ -93,77 +80,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     hiddenElements.forEach(el => observer.observe(el));
-
-    // Animare contoare pentru statistici
-    const statNumbers = document.querySelectorAll('.stat-number[data-counter]');
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const target = parseInt(el.getAttribute('data-counter'), 10);
-                const duration = 2000; // 2 secunde
-                const startTime = performance.now();
-                
-                function updateCounter(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const value = Math.floor(progress * target);
-                    el.textContent = value;
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        el.textContent = target;
-                    }
-                }
-                requestAnimationFrame(updateCounter);
-                counterObserver.unobserve(el);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    statNumbers.forEach(num => counterObserver.observe(num));
-
-    // Slider testimoniale
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlider();
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateSlider();
-    }
-
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    // Auto-play la fiecare 6 secunde
-    let autoPlay = setInterval(nextSlide, 6000);
-
-    // Pauză la hover
-    const sliderContainer = document.querySelector('.testimonial-slider');
-    if (sliderContainer) {
-        sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
-        sliderContainer.addEventListener('mouseleave', () => {
-            autoPlay = setInterval(nextSlide, 6000);
-        });
-    }
-
-    // Recalculare la redimensionare
-    window.addEventListener('resize', updateSlider);
-
-    // Inițializare poziție slider
-    updateSlider();
-
-    // Formular contact (demo - poate fi conectat la Formspree ulterior)
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Înlocuiește acest cod cu un fetch către Formspree sau alt serviciu
-            // ex: fetch('https://formspree.io/f/yourFormID', { method: 'POST', body: new FormData(contactForm) })
-            alert('Mulțumesc pentru mesaj! (Demo) Formularul va fi conectat la un serviciu de email în curând.');
-            contactForm.reset();
-        });
-    }
 });

@@ -178,10 +178,13 @@ img {
     font-weight: 700;
     font-size: 1.6rem;
     color: var(--accent);
+    line-height: 1.2;
 }
 
-.logo span {
+.logo small {
+    font-size: 0.7em;
     color: var(--text-main);
+    font-weight: 500;
 }
 
 #nav-menu ul {

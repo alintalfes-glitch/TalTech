@@ -20,6 +20,10 @@
     --blue: #3B82F6;
     --green: #10B981;
     --orange: #F59E0B;
+    /* Variabile RGB pentru opacitate */
+    --accent-rgb: 232, 155, 45;
+    --blue-rgb: 59, 130, 246;
+    --green-rgb: 16, 185, 129;
     --border-light: #E2E8F0;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
@@ -44,6 +48,10 @@
     --blue: #60A5FA;
     --green: #34D399;
     --orange: #FBBF24;
+    /* Variabile RGB pentru dark mode */
+    --accent-rgb: 232, 155, 45;
+    --blue-rgb: 96, 165, 250;
+    --green-rgb: 52, 211, 153;
     --border-light: #2d2d2d;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
@@ -106,7 +114,7 @@ img {
 }
 
 .section-title {
-    font-size: 1rem;
+    font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-secondary);
@@ -151,13 +159,13 @@ img {
 .btn-primary {
     background-color: var(--accent);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(232, 155, 45, 0.3);
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
 }
 
 .btn-primary:hover {
     background-color: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(232, 155, 45, 0.4);
+    box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.4);
 }
 
 .btn-secondary {
@@ -350,6 +358,7 @@ img {
 /* ========== HERO ========== */
 .hero {
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     position: relative;
@@ -365,7 +374,19 @@ img {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(232,155,45,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--blue-rgb), 0.08) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -429,13 +450,23 @@ img {
 .service-icon {
     margin-bottom: 15px;
     color: var(--accent);
-    background: rgba(232,155,45,0.1);
+    background: rgba(var(--accent-rgb), 0.1);
     width: 50px;
     height: 50px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.service-icon--blue {
+    color: var(--blue);
+    background: rgba(var(--blue-rgb), 0.1);
+}
+
+.service-icon--green {
+    color: var(--green);
+    background: rgba(var(--green-rgb), 0.1);
 }
 
 .service-card h3 {
@@ -457,13 +488,13 @@ img {
 }
 
 .tech-list li {
-    background: rgba(232,155,45,0.1);
+    background: rgba(var(--accent-rgb), 0.1);
     color: var(--accent-hover);
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
-    border: 1px solid rgba(232,155,45,0.2);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
 /* ========== DESPRE ========== */
@@ -511,13 +542,13 @@ img {
 }
 
 .tech-tag {
-    background: rgba(232,155,45,0.1);
+    background: rgba(var(--accent-rgb), 0.1);
     color: var(--accent-hover);
     padding: 6px 15px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    border: 1px solid rgba(232,155,45,0.2);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
 /* ========== PROCES ========== */
@@ -660,6 +691,16 @@ img {
     border-color: var(--accent);
 }
 
+/* ========== ACCESIBILITATE ========== */
+.btn:focus-visible,
+.nav-link:focus-visible,
+.theme-toggle:focus-visible,
+.logo:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 /* ========== RESPONSIVE ========== */
 @media screen and (min-width: 480px) {
     .services-grid {
@@ -719,12 +760,23 @@ img {
         gap: 20px;
     }
     .section-title {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
     .about-container {
         padding: 25px;
     }
     .contact-content {
         padding: 25px;
+    }
+}
+
+/* ========== PREFERS-REDUCED-MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

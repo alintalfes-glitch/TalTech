@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TALTECH Software Solutions - Dezvoltare software și servicii web. REMUS ALIN TALFEȘ PFA oferă soluții complete pentru afacerea ta.">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="TALTECH Software Solutions - Dezvoltare software și servicii web. REMUS ALIN TALFEȘ PFA oferă soluții complete pentru afacerea ta: site-uri, aplicații web, SEO, mentenanță.">
     <meta name="author" content="REMUS ALIN TALFEȘ PFA">
-    <meta name="keywords" content="dezvoltare software, web design, aplicații web, SEO, mentenanță, PFA, TALTECH">
+    <meta name="keywords" content="dezvoltare software, web design, aplicații web, SEO, mentenanță, PFA, TALTECH, Remus Alin Talfeș">
+    <link rel="canonical" href="https://www.taltech.ro/">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TALTECH Software Solutions | Dezvoltare Software & Servicii Web">
+    <meta property="og:description" content="Transform ideile în aplicații web performante. Servicii complete de dezvoltare, mentenanță și optimizare SEO.">
+    <meta property="og:image" content="https://www.taltech.ro/og-image.jpg">
+    <meta property="og:url" content="https://www.taltech.ro/">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TALTECH Software Solutions">
+    <meta name="twitter:description" content="Dezvoltare software și servicii web pentru afacerea ta.">
+    <meta name="twitter:image" content="https://www.taltech.ro/og-image.jpg">
     <title>TALTECH Software Solutions | Dezvoltare Software & Servicii Web</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- JavaScript -->
@@ -27,6 +40,7 @@
                     <li><a href="#servicii" class="nav-link">Servicii</a></li>
                     <li><a href="#despre" class="nav-link">Despre</a></li>
                     <li><a href="#portofoliu" class="nav-link">Portofoliu</a></li>
+                    <li><a href="#proces" class="nav-link">Proces</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
@@ -42,140 +56,301 @@
         <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="container hero-content">
-                <p class="hero-subtitle">Soluții software complete pentru afacerea ta</p>
-                <h1 class="hero-title">Dezvoltare Web & Software la Standarde Înalte</h1>
-                <p class="hero-text">Transformă-ți ideile în realitate cu servicii profesionale de dezvoltare, mentenanță și optimizare. Contactează-mă pentru un parteneriat de succes.</p>
-                <a href="#contact" class="btn btn-primary">Contactează-mă</a>
+                <p class="hero-subtitle">Dezvoltare Software Profesională</p>
+                <h1 class="hero-title">Transform Ideile în Aplicații Web Performante</h1>
+                <p class="hero-text">Sunt Remus Alin Talfeș, dezvoltator full-stack cu peste 10 ani de experiență. Creez soluții digitale scalabile, sigure și orientate spre rezultate pentru afacerea ta.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Solicită o Ofertă</a>
+                    <a href="#portofoliu" class="btn btn-secondary">Vezi Proiecte</a>
+                </div>
             </div>
         </section>
 
         <!-- Servicii Section -->
-        <section id="servicii" class="section hidden">
+        <section id="servicii" class="section">
             <div class="container">
                 <h2 class="section-title">Servicii</h2>
-                <p class="section-subtitle">Ce pot face pentru tine</p>
+                <p class="section-subtitle">Ce pot face pentru afacerea ta</p>
                 <div class="services-grid">
                     <article class="service-card hidden">
-                        <div class="service-icon">🌐</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10a8 8 0 0 1 16 0v11"/><path d="M21 21H3"/><path d="M12 10v4"/><path d="M9 14h6"/></svg>
+                        </div>
                         <h3>Dezvoltare Website-uri</h3>
                         <p>Site-uri de prezentare moderne, rapide și optimizate pentru conversii, construite cu tehnologii de ultimă generație.</p>
+                        <ul class="tech-list">
+                            <li>HTML/CSS/JS</li>
+                            <li>React</li>
+                            <li>Next.js</li>
+                        </ul>
                     </article>
                     <article class="service-card hidden">
-                        <div class="service-icon">⚙️</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 2v20"/><path d="M2 8h6"/><path d="M2 16h6"/><path d="M14 2v20"/><path d="M2 12h20"/></svg>
+                        </div>
                         <h3>Aplicații Web</h3>
                         <p>Aplicații web complexe, scalabile și sigure, adaptate nevoilor specifice ale afacerii tale.</p>
+                        <ul class="tech-list">
+                            <li>Node.js</li>
+                            <li>Laravel</li>
+                            <li>PostgreSQL</li>
+                        </ul>
                     </article>
                     <article class="service-card hidden">
-                        <div class="service-icon">🔧</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0-1.4 1.4L15 9H5a1 1 0 0 0 0 2h10l-1.7 1.3a1 1 0 1 0 1.4 1.4l3-3a1 1 0 0 0 0-1.4z"/><path d="M21 12a9 9 0 1 1-3-6.7"/></svg>
+                        </div>
                         <h3>Mentenanță & Suport</h3>
                         <p>Actualizări, backup-uri, monitorizare și suport tehnic pentru ca site-ul tău să funcționeze impecabil.</p>
+                        <ul class="tech-list">
+                            <li>Git</li>
+                            <li>Docker</li>
+                            <li>CI/CD</li>
+                        </ul>
                     </article>
                     <article class="service-card hidden">
-                        <div class="service-icon">📈</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                        </div>
                         <h3>Optimizare SEO</h3>
                         <p>Îmbunătățește vizibilitatea în motoarele de căutare și atrage mai mulți clienți organici.</p>
+                        <ul class="tech-list">
+                            <li>Google Analytics</li>
+                            <li>Search Console</li>
+                            <li>Schema.org</li>
+                        </ul>
                     </article>
                     <article class="service-card hidden">
-                        <div class="service-icon">🔗</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                        </div>
                         <h3>Integrări API</h3>
                         <p>Conectează aplicația ta cu servicii terțe (plăți, CRM, email) prin integrări API robuste.</p>
+                        <ul class="tech-list">
+                            <li>REST</li>
+                            <li>GraphQL</li>
+                            <li>Webhooks</li>
+                        </ul>
                     </article>
                     <article class="service-card hidden">
-                        <div class="service-icon">🛡️</div>
+                        <div class="service-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                        </div>
                         <h3>Securitate & Performanță</h3>
                         <p>Audit de securitate, optimizare viteză și implementarea celor mai bune practici de protecție.</p>
+                        <ul class="tech-list">
+                            <li>OWASP</li>
+                            <li>SSL</li>
+                            <li>CDN</li>
+                        </ul>
                     </article>
                 </div>
             </div>
         </section>
 
         <!-- Despre Section -->
-        <section id="despre" class="section section-alt hidden">
+        <section id="despre" class="section section-alt">
             <div class="container about-container">
+                <div class="about-photo">
+                    <!-- Adaugă aici fotografia profesională (ex: <img src="poza-ta.jpg" alt="Remus Alin Talfeș">) -->
+                    <img src="https://placehold.co/400x400/1a1a1a/00d4ff?text=Remus+Alin+Talfeș" alt="Remus Alin Talfeș">
+                </div>
                 <div class="about-text">
                     <h2 class="section-title">Despre Mine</h2>
                     <p class="about-highlight">REMUS ALIN TALFEȘ PFA</p>
-                    <p>Cu peste 10 ani de experiență în dezvoltarea software, ofer servicii complete de web development pentru afaceri care doresc să își consolideze prezența online. Sunt pasionat de tehnologie și dedicat livrării de soluții eficiente, scalabile și ușor de utilizat.</p>
-                    <p>Valorile mele: profesionalism, transparență, comunicare constantă și respectarea termenelor. Fiecare proiect este tratat cu maximă seriozitate, ca și cum ar fi al meu.</p>
-                    <ul class="about-values">
-                        <li>✅ Experiență vastă</li>
-                        <li>✅ Soluții personalizate</li>
-                        <li>✅ Suport post-lansare</li>
-                    </ul>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-box hidden">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Ani Experiență</span>
+                    <p>Pasionat de tehnologie și dedicat excelenței, ajut afacerile să își construiască o prezență digitală solidă. Cu peste 10 ani de experiență în dezvoltarea software, am livrat soluții care aduc valoare reală clienților mei.</p>
+                    <p>Abordarea mea se bazează pe transparență, comunicare constantă și respectarea termenelor. Fiecare proiect este tratat cu aceeași seriozitate ca și cum ar fi al meu.</p>
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <span class="stat-number" data-counter="10">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Ani Experiență</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" data-counter="50">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Proiecte Finalizate</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" data-counter="100">0</span><span class="stat-suffix">%</span>
+                            <span class="stat-label">Clienți Mulțumiți</span>
+                        </div>
                     </div>
-                    <div class="stat-box hidden">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Proiecte Finalizate</span>
-                    </div>
-                    <div class="stat-box hidden">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Clienți Mulțumiți</span>
+                    <div class="tech-row">
+                        <h4>Tehnologii cu care lucrez:</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Tailwind</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Portofoliu Section -->
-        <section id="portofoliu" class="section hidden">
+        <section id="portofoliu" class="section">
             <div class="container">
                 <h2 class="section-title">Portofoliu</h2>
                 <p class="section-subtitle">Proiecte recente</p>
                 <div class="portfolio-grid">
-                    <article class="portfolio-item hidden">
-                        <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+1" alt="Proiect 1 - Website de prezentare" loading="lazy">
-                        <div class="portfolio-info">
-                            <h3>Website Corporate</h3>
-                            <p>Platformă modernă pentru o companie de consultanță.</p>
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+1" alt="Proiect 1 - Platformă E-commerce" loading="lazy">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3>Platformă E-commerce</h3>
+                            <p>Magazin online complet cu integrare plăți, administrare produse și panou de analiză.</p>
+                            <div class="tech-stack">
+                                <span>React</span><span>Node.js</span><span>PostgreSQL</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
                         </div>
                     </article>
-                    <article class="portfolio-item hidden">
-                        <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+2" alt="Proiect 2 - Aplicație web" loading="lazy">
-                        <div class="portfolio-info">
-                            <h3>Aplicație E-commerce</h3>
-                            <p>Magazin online cu integrare plăți și administrare produse.</p>
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+2" alt="Proiect 2 - Dashboard Analytics" loading="lazy">
                         </div>
-                    </article>
-                    <article class="portfolio-item hidden">
-                        <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+3" alt="Proiect 3 - Dashboard" loading="lazy">
-                        <div class="portfolio-info">
+                        <div class="portfolio-body">
                             <h3>Dashboard Analytics</h3>
-                            <p>Interfață de raportare pentru date în timp real.</p>
+                            <p>Interfață de raportare în timp real pentru date de business, cu grafice interactive.</p>
+                            <div class="tech-stack">
+                                <span>Next.js</span><span>Tailwind</span><span>Chart.js</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
                         </div>
                     </article>
-                    <article class="portfolio-item hidden">
-                        <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+4" alt="Proiect 4 - Landing Page" loading="lazy">
-                        <div class="portfolio-info">
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+3" alt="Proiect 3 - Aplicație CRM" loading="lazy">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3>Aplicație CRM</h3>
+                            <p>Sistem de gestionare a relațiilor cu clienții, cu modul de raportare și notificări.</p>
+                            <div class="tech-stack">
+                                <span>Laravel</span><span>Vue.js</span><span>MySQL</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
+                        </div>
+                    </article>
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+4" alt="Proiect 4 - Landing Page Campanie" loading="lazy">
+                        </div>
+                        <div class="portfolio-body">
                             <h3>Landing Page Campanie</h3>
-                            <p>Pagină de destinație optimizată pentru conversii.</p>
+                            <p>Pagină de destinație optimizată pentru conversii, cu A/B testing și integrare email.</p>
+                            <div class="tech-stack">
+                                <span>HTML/CSS</span><span>JavaScript</span><span>Mailchimp</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
+                        </div>
+                    </article>
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+5" alt="Proiect 5 - Portal Imobiliar" loading="lazy">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3>Portal Imobiliar</h3>
+                            <p>Platformă de listare proprietăți cu căutare avansată, hărți și conturi utilizator.</p>
+                            <div class="tech-stack">
+                                <span>React</span><span>Node.js</span><span>MongoDB</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
+                        </div>
+                    </article>
+                    <article class="portfolio-card hidden">
+                        <div class="portfolio-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/00d4ff?text=Project+6" alt="Proiect 6 - Aplicație Food Delivery" loading="lazy">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3>Aplicație Food Delivery</h3>
+                            <p>Platformă completă de comandă online pentru restaurante, cu tracking live și plăți.</p>
+                            <div class="tech-stack">
+                                <span>Next.js</span><span>Stripe</span><span>PostgreSQL</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Vezi Proiect</a>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
 
+        <!-- Proces Section (Nou) -->
+        <section id="proces" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Cum Lucrăm</h2>
+                <p class="section-subtitle">Procesul de colaborare pas cu pas</p>
+                <div class="process-grid">
+                    <div class="process-step hidden">
+                        <div class="step-number">1</div>
+                        <h3>Discuție</h3>
+                        <p>Stabilim împreună obiectivele, cerințele și direcția proiectului.</p>
+                    </div>
+                    <div class="process-step hidden">
+                        <div class="step-number">2</div>
+                        <h3>Ofertă</h3>
+                        <p>Primești o propunere clară cu soluții, termene și costuri transparente.</p>
+                    </div>
+                    <div class="process-step hidden">
+                        <div class="step-number">3</div>
+                        <h3>Dezvoltare</h3>
+                        <p>Implementez proiectul folosind tehnologii moderne, cu actualizări periodice.</p>
+                    </div>
+                    <div class="process-step hidden">
+                        <div class="step-number">4</div>
+                        <h3>Lansare & Suport</h3>
+                        <p>Publicăm produsul final și ofer suport continuu pentru performanță optimă.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimoniale Section -->
-        <section id="testimoniale" class="section section-alt hidden">
+        <section id="testimoniale" class="section">
             <div class="container">
                 <h2 class="section-title">Testimoniale</h2>
                 <p class="section-subtitle">Ce spun clienții</p>
                 <div class="testimonial-slider">
                     <div class="testimonial-track" id="testimonial-track">
                         <div class="testimonial-slide">
-                            <blockquote>"Colaborarea cu TALTECH a fost excelentă. Site-ul nostru a crescut traficul cu 200%."</blockquote>
-                            <cite>— Andrei Popescu, CEO TechNova</cite>
+                            <div class="testimonial-card">
+                                <p class="testimonial-text">"Colaborarea cu TALTECH a fost excelentă. Site-ul nostru a crescut traficul cu 200% și am primit numeroase aprecieri de la clienți."</p>
+                                <div class="testimonial-author">
+                                    <img src="https://placehold.co/50x50/1a1a1a/00d4ff?text=AP" alt="Avatar Andrei Popescu" class="avatar">
+                                    <div class="author-info">
+                                        <span class="author-name">Andrei Popescu</span>
+                                        <span class="author-company">CEO TechNova</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="testimonial-slide">
-                            <blockquote>"Profesionist, prompt și cu soluții inovatoare. Recomand cu încredere."</blockquote>
-                            <cite>— Maria Ionescu, Marketing Manager</cite>
+                            <div class="testimonial-card">
+                                <p class="testimonial-text">"Profesionist, prompt și cu soluții inovatoare. Recomand cu încredere pentru orice proiect de dezvoltare web."</p>
+                                <div class="testimonial-author">
+                                    <img src="https://placehold.co/50x50/1a1a1a/00d4ff?text=MI" alt="Avatar Maria Ionescu" class="avatar">
+                                    <div class="author-info">
+                                        <span class="author-name">Maria Ionescu</span>
+                                        <span class="author-company">Marketing Manager</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="testimonial-slide">
-                            <blockquote>"Aplicația web dezvoltată a depășit așteptările noastre. Suport excelent."</blockquote>
-                            <cite>— Alex Dumitru, Fondator Startup</cite>
+                            <div class="testimonial-card">
+                                <p class="testimonial-text">"Aplicația web dezvoltată a depășit așteptările noastre. Suportul oferit după lansare a fost impecabil."</p>
+                                <div class="testimonial-author">
+                                    <img src="https://placehold.co/50x50/1a1a1a/00d4ff?text=AD" alt="Avatar Alex Dumitru" class="avatar">
+                                    <div class="author-info">
+                                        <span class="author-name">Alex Dumitru</span>
+                                        <span class="author-company">Fondator Startup</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button class="slider-btn prev" id="prev-btn" aria-label="Testimonial anterior">&#10094;</button>
@@ -185,16 +360,38 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section hidden">
-            <div class="container contact-container">
+        <section id="contact" class="section section-alt">
+            <div class="container">
                 <h2 class="section-title">Contact</h2>
                 <p class="section-subtitle">Hai să discutăm despre proiectul tău</p>
-                <div class="contact-content">
-                    <p>Sunt disponibil pentru colaborări și proiecte noi. Cel mai rapid mod de a mă contacta este prin WhatsApp.</p>
-                    <a href="https://wa.me/alin.talfes" target="_blank" rel="noopener" class="btn btn-whatsapp">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Contactează-mă pe WhatsApp
-                    </a>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Date de contact</h3>
+                        <p><strong>Email:</strong> <a href="mailto:contact@taltech.ro">contact@taltech.ro</a> <!-- înlocuiește cu adresa reală --></p>
+                        <p><strong>WhatsApp:</strong> <a href="https://wa.me/40XXXXXXXXX" target="_blank" rel="noopener">+40 7XX XXX XXX</a> <!-- Înlocuiește 40XXXXXXXXX cu numărul real --></p>
+                        <a href="https://wa.me/40XXXXXXXXX" target="_blank" rel="noopener" class="btn btn-whatsapp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            Scrie-mi pe WhatsApp
+                        </a>
+                    </div>
+                    <div class="contact-form">
+                        <!-- Formularul poate fi conectat ulterior la Formspree sau similar -->
+                        <form id="contact-form" action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Nume</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mesaj</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Trimite Mesaj</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -213,7 +410,8 @@
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/alin.talfes" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contact pe WhatsApp">
+    <!-- Înlocuiește 40XXXXXXXXX cu numărul real de telefon (ex: 40712345678) -->
+    <a href="https://wa.me/40XXXXXXXXX" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contact pe WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 

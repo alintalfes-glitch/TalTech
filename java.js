@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funcție pentru actualizarea slider-ului
     function updateSlider() {
+        if (totalSlides === 0) return;
         const slideWidth = slides[0].clientWidth;
         testimonialTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
     }
@@ -57,6 +58,20 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             scrollTopBtn.classList.remove('visible');
         }
+
+        // Scrollspy pentru link activ
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+            const top = section.offsetTop - 100;
+            const bottom = top + section.offsetHeight;
+            const scrollPos = window.scrollY;
+            const id = section.getAttribute('id');
+            const correspondingLink = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (correspondingLink && scrollPos >= top && scrollPos < bottom) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                correspondingLink.classList.add('active');
+            }
+        });
     });
 
     // Scroll to top
@@ -69,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Animație o singură dată
+                observer.unobserve(entry.target);
             }
         });
     }, {
@@ -78,6 +93,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     hiddenElements.forEach(el => observer.observe(el));
+
+    // Animare contoare pentru statistici
+    const statNumbers = document.querySelectorAll('.stat-number[data-counter]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-counter'), 10);
+                const duration = 2000; // 2 secunde
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * target);
+                    el.textContent = value;
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(num => counterObserver.observe(num));
 
     // Slider testimoniale
     function nextSlide() {
@@ -93,19 +137,33 @@ document.addEventListener('DOMContentLoaded', function() {
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
 
-    // Auto-play la fiecare 5 secunde
-    let autoPlay = setInterval(nextSlide, 5000);
+    // Auto-play la fiecare 6 secunde
+    let autoPlay = setInterval(nextSlide, 6000);
 
     // Pauză la hover
     const sliderContainer = document.querySelector('.testimonial-slider');
-    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
-    sliderContainer.addEventListener('mouseleave', () => {
-        autoPlay = setInterval(nextSlide, 5000);
-    });
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        sliderContainer.addEventListener('mouseleave', () => {
+            autoPlay = setInterval(nextSlide, 6000);
+        });
+    }
 
     // Recalculare la redimensionare
     window.addEventListener('resize', updateSlider);
 
     // Inițializare poziție slider
     updateSlider();
+
+    // Formular contact (demo - poate fi conectat la Formspree ulterior)
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Înlocuiește acest cod cu un fetch către Formspree sau alt serviciu
+            // ex: fetch('https://formspree.io/f/yourFormID', { method: 'POST', body: new FormData(contactForm) })
+            alert('Mulțumesc pentru mesaj! (Demo) Formularul va fi conectat la un serviciu de email în curând.');
+            contactForm.reset();
+        });
+    }
 });

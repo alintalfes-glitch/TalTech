@@ -1,8 +1,16 @@
-// Generator XML e-Factura CIUS-RO și validare best-effort
+// js/e-factura.js – Generator XML e-Factura CIUS-RO și validare best-effort
+
+// Scăpăm caracterele speciale pentru XML
+function escapeXML(str) {
+  return String(str).replace(/[<>&'"]/g, c => ({
+    '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;'
+  }[c]));
+}
+
+// Generează XML conform CIUS-RO (versiunea din config)
 function genereazaXMLFactura(factura) {
   const pfa = CONFIG_FISCAL.PFA;
   const sumaTotalLei = (factura.suma_bani / 100).toFixed(2);
-  const data = factura.data;
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
          xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -10,7 +18,7 @@ function genereazaXMLFactura(factura) {
   <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
   <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#RO:CIUS-RO:${CONFIG_FISCAL.EFACTURA.versiuneCIUS}</cbc:CustomizationID>
   <cbc:ID>${pfa.serieFactura}${factura.numar}</cbc:ID>
-  <cbc:IssueDate>${data}</cbc:IssueDate>
+  <cbc:IssueDate>${factura.data}</cbc:IssueDate>
   <cbc:InvoiceTypeCode>${factura.suma_bani >= 0 ? '380' : '381'}</cbc:InvoiceTypeCode>
   <cbc:DocumentCurrencyCode>RON</cbc:DocumentCurrencyCode>
   <cac:AccountingSupplierParty>
@@ -66,12 +74,6 @@ function genereazaXMLFactura(factura) {
   return xml;
 }
 
-function escapeXML(str) {
-  return String(str).replace(/[<>&'"]/g, c => ({
-    '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;'
-  }[c]));
-}
-
 // Validare best-effort: verifică structura și sumele
 function validareXMLBestEffort(xmlString) {
   const errors = [];
@@ -94,18 +96,20 @@ function validareXMLBestEffort(xmlString) {
   } else {
     errors.push('Nu s-au putut extrage sumele pentru validare');
   }
-  // Notă: validarea XSD oficială necesită fișiere ANAF și este doar best-effort aici.
   return errors;
 }
 
+// Descarcă sau copiază XML-ul
 async function descarcaSauCopiazaXML(xmlString, filename) {
-  if (confirm('Descarcă XML-ul?')) {
+  if (confirm('Descarcă XML-ul? (Anulează = copiază în clipboard)')) {
     downloadBlob(new Blob([xmlString], { type: 'application/xml' }), filename, 'application/xml');
+    showToast('XML descărcat', 'success');
   } else {
     await navigator.clipboard.writeText(xmlString);
     showToast('XML copiat în clipboard', 'success');
   }
 }
+
 // Încarcă lista de facturi pentru tab-ul e-Factura
 async function incarcaListaFacturiEfactura() {
   const tab = document.getElementById('tab-efactura');
@@ -122,12 +126,12 @@ async function incarcaListaFacturiEfactura() {
   `;
 
   const { data, error } = await supabase.from('facturi').select('*').order('data', { ascending: false });
-  if (error) return;
+  if (error) { showToast('Eroare încărcare facturi: ' + error.message, 'danger'); return; }
 
   const tbody = document.querySelector('#tabel-efactura');
   tbody.innerHTML = `
     <thead><tr>
-      <th>Serie/Număr</th><th>Data</th><th>Client</th><th>Sumă</th><th>Status XML</th><th>Acțiune</th>
+      <th>Serie/Număr</th><th>Data</th><th>Client</th><th>Sumă</th><th>Acțiune</th>
     </tr></thead>
     <tbody>
       ${data.map(f => `
@@ -136,15 +140,13 @@ async function incarcaListaFacturiEfactura() {
           <td>${f.data}</td>
           <td>${f.client}</td>
           <td>${formatBani(f.suma_bani)}</td>
-          <td>Nedescărcat</td>
           <td><button class="btn btn-secondary btn-sm" onclick="genereazaXMLSiDescarca('${f.id}')">Generează XML</button></td>
         </tr>
       `).join('')}
     </tbody>`;
 }
-// Inițializare tab e-Factura
+
+// Inițializare tab e-Factura (apelată din auth.js)
 function initEfactura() {
-  // Funcția incarcaListaFacturiEfactura construiește conținutul tab-ului
-  // și încarcă datele, deci o apelăm direct.
   incarcaListaFacturiEfactura();
 }

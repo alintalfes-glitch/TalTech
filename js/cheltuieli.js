@@ -85,7 +85,6 @@ async function incarcaCheltuieli() {
           <td>${formatBani(c.suma_total_bani)}</td>
           <td>${c.numar_factura_furnizor || '-'}</td>
           <td>${c.atasament_path ? `<button class="btn btn-secondary btn-sm" onclick="window.open('${getSignedUrl(c.atasament_path)}')">Deschide</button>` : '-'}</td>
-          <td><button class="btn btn-danger btn-sm" onclick="stergeCheltuiala('${c.id}')">Șterge</button></td>
         </tr>
       `).join('')}
     </tbody>`;

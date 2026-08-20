@@ -8,7 +8,6 @@
 }
 
 :root {
-    /* Light Mode */
     --bg-start: #F8F1E9;
     --bg-end: #E8F1F8;
     --bg-card: #FFFFFF;
@@ -20,9 +19,9 @@
     --blue: #3B82F6;
     --green: #10B981;
     --orange: #F59E0B;
-    --accent-rgb: 232, 155, 45;
-    --blue-rgb: 59, 130, 246;
-    --green-rgb: 16, 185, 129;
+    --accent-rgb: 232,155,45;
+    --blue-rgb: 59,130,246;
+    --green-rgb: 16,185,129;
     --border-light: #E2E8F0;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
@@ -47,9 +46,9 @@
     --blue: #60A5FA;
     --green: #34D399;
     --orange: #FBBF24;
-    --accent-rgb: 232, 155, 45;
-    --blue-rgb: 96, 165, 250;
-    --green-rgb: 52, 211, 153;
+    --accent-rgb: 232,155,45;
+    --blue-rgb: 96,165,250;
+    --green-rgb: 52,211,153;
     --border-light: #2d2d2d;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
@@ -69,16 +68,23 @@ html {
     scroll-behavior: smooth;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: var(--font-body);
     background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
     font-size: 16px;
     min-height: 100vh;
     transition: background 0.4s ease, color 0.4s ease;
-    cursor: auto; /* Am revenit la cursor normal pentru a evita probleme pe mobil */
+    cursor: auto;
 }
 
 h1, h2, h3, h4 {
@@ -225,7 +231,7 @@ img {
     to { transform: rotate(360deg); }
 }
 
-/* ========== CUSTOM CURSOR (dezactivat pe mobil) ========== */
+/* ========== CUSTOM CURSOR ========== */
 .custom-cursor {
     position: fixed;
     width: 20px;
@@ -540,7 +546,7 @@ img {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1 1 150px; /* Permite rearanjarea pe mobil */
+    flex: 1 1 150px;
     min-width: 120px;
 }
 
@@ -1120,10 +1126,11 @@ img {
     gap: 10px;
     max-width: 500px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 #newsletter-email {
-    flex: 1;
+    flex: 1 1 200px;
     padding: 12px 15px;
     border: 1px solid var(--border-light);
     border-radius: 999px;
@@ -1465,13 +1472,12 @@ img {
     }
 }
 
-/* ========== MOBILE SPECIFIC (max-width: 767px) ========== */
+/* ========== MOBILE SPECIFIC ========== */
 @media screen and (max-width: 767px) {
     .hamburger {
         display: flex;
     }
 
-    /* Ascundem elementele care aglomerează navbar-ul pe mobil */
     .availability-badge,
     .lang-toggle {
         display: none;
@@ -1481,7 +1487,6 @@ img {
         gap: 10px;
     }
 
-    /* Meniul mobil: afișăm toate linkurile */
     #nav-menu {
         position: fixed;
         top: 80px;
@@ -1497,8 +1502,8 @@ img {
     }
 
     #nav-menu.active {
-        max-height: 80vh; /* Asigură afișarea tuturor linkurilor */
-        overflow-y: auto; /* În cazul în care sunt multe linkuri */
+        max-height: 80vh;
+        overflow-y: auto;
     }
 
     #nav-menu ul {
@@ -1508,14 +1513,12 @@ img {
         gap: 15px;
     }
 
-    /* Titlu secțiune */
     .section-title {
         font-size: 1.5rem;
     }
 
-    /* Hero */
     .hero-title {
-        font-size: 2.5rem; /* Redus pentru ecrane mici */
+        font-size: 2.5rem;
     }
 
     .hero-text {
@@ -1528,9 +1531,9 @@ img {
     }
 
     .hero-stat {
-        flex: 1 1 100%; /* Fiecare stat pe rând complet */
+        flex: 1 1 100%;
         min-width: auto;
-        align-items: center; /* Centrare pe mobil */
+        align-items: center;
         text-align: center;
     }
 
@@ -1546,7 +1549,6 @@ img {
         padding: 25px;
     }
 
-    /* Elemente flotante ajustate */
     .whatsapp-float {
         bottom: 20px;
         right: 20px;
@@ -1606,7 +1608,7 @@ img {
     }
 }
 
-/* Pentru ecrane foarte mici (ex. 360px) */
+/* Pentru ecrane foarte mici */
 @media screen and (max-width: 360px) {
     .hero-title {
         font-size: 2rem;

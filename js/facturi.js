@@ -92,7 +92,6 @@ async function incarcaFacturi() {
             <button class="btn btn-secondary btn-sm" onclick="editeazaFactura('${f.id}')">Editează</button>
             <button class="btn btn-secondary btn-sm" onclick="exportPDFFactura('${f.id}')">PDF</button>
             <button class="btn btn-secondary btn-sm" onclick="genereazaXMLSiDescarca('${f.id}')">XML e-Factura</button>
-            <button class="btn btn-danger btn-sm" onclick="stergeFactura('${f.id}')">Șterge</button>
           </td>
         </tr>
       `).join('')}

@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
     const portfolioImages = document.querySelectorAll('.portfolio-image img[data-lightbox]');
+    const contrastToggle = document.getElementById('contrast-toggle');
 
     window.addEventListener('load', () => {
         loader.classList.add('hidden');
@@ -151,6 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('taltech-theme', newTheme);
     });
 
+    contrastToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('high-contrast');
+        contrastToggle.textContent = document.documentElement.classList.contains('high-contrast') ? '◑' : '◐';
+    });
+
     let currentSlide = 0;
     const totalSlides = slides.length;
     const updateSlider = () => {
@@ -269,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.querySelectorAll('a[href*="wa.me"], a[href*="wa.me"]').forEach(a => {
+    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
         a.addEventListener('click', () => trackEvent('Contact', 'Click WhatsApp', a.href));
     });
 

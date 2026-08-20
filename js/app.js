@@ -1,5 +1,6 @@
-// Utilitare globale, navigare, dashboard, backup/restore
+// js/app.js – Utilitare globale, navigare, dashboard, backup/restore
 let activeTab = 'dashboard';
+let currentChart = null; // stocăm graficul Chart.js pentru distrugere ulterioară
 
 function initNavigation() {
   const links = document.querySelectorAll('#nav-menu a[data-tab]');
@@ -10,14 +11,17 @@ function initNavigation() {
       switchTab(tab);
     });
   });
+
   document.getElementById('hamburger').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('open');
   });
+
   // Backup / Restore
   document.getElementById('btn-backup').addEventListener('click', exportJSONBackup);
   document.getElementById('btn-restore').addEventListener('click', () => {
     document.getElementById('restore-file-input').click();
   });
+
   // Input ascuns pentru restore
   const input = document.createElement('input');
   input.type = 'file';
@@ -31,10 +35,12 @@ function initNavigation() {
 function switchTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.getElementById(`tab-${tab}`).classList.add('active');
+  const target = document.getElementById(`tab-${tab}`);
+  if (target) target.classList.add('active');
   document.querySelectorAll('#nav-menu a').forEach(a => {
     a.classList.toggle('active', a.dataset.tab === tab);
   });
+
   // Reîncărcare date specifice la schimbare
   switch (tab) {
     case 'dashboard': initDashboard(); break;
@@ -54,8 +60,10 @@ function switchTab(tab) {
 function formatBani(bani) {
   return (bani / 100).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' lei';
 }
+
+// Conversie lei (string sau number) -> bani (integer)
 function parseLeiToBani(leiStr) {
-  const nr = parseFloat(leiStr.replace(',', '.'));
+  const nr = parseFloat(String(leiStr).replace(',', '.'));
   if (isNaN(nr)) return 0;
   return Math.round(nr * 100);
 }
@@ -78,7 +86,7 @@ function stergeDraft(key) {
 
 function showToast(msg, type = 'success') {
   const div = document.createElement('div');
-  div.className = `alert alert-${type === 'success' ? 'warning' : 'danger'}`;
+  div.className = `alert ${type === 'danger' ? 'alert-danger' : 'alert-warning'}`;
   div.textContent = msg;
   div.style.position = 'fixed';
   div.style.top = '1rem';
@@ -113,16 +121,26 @@ async function initDashboard() {
   const tab = document.getElementById('tab-dashboard');
   const user = (await supabase.auth.getUser()).data.user;
   if (!user) return;
+
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0, 10);
   const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
-  const [facturiLuna, cheltuieliLuna, facturiNeincasate, contracteExpirand, declaratie] = await Promise.all([
+  const [
+    facturiLuna,
+    cheltuieliLuna,
+    facturiNeincasate,
+    contracteExpirand,
+    declaratie
+  ] = await Promise.all([
     supabase.from('facturi').select('suma_bani').gte('data', startOfMonth).lte('data', endOfMonth),
     supabase.from('cheltuieli').select('suma_total_bani').gte('data', startOfMonth).lte('data', endOfMonth),
     supabase.from('facturi').select('suma_bani').eq('status', 'neplătită'),
-    supabase.from('contracte').select('id, client, data_end').eq('status', 'activ').lte('data_end', thirtyDaysFromNow).gte('data_end', now.toISOString().slice(0, 10)),
+    supabase.from('contracte').select('id, client, data_end')
+      .eq('status', 'activ')
+      .gte('data_end', now.toISOString().slice(0, 10))
+      .lte('data_end', thirtyDaysFromNow),
     supabase.from('declaratii').select('*').eq('an', CONFIG_FISCAL.FISCAL.anCurent).maybeSingle()
   ]);
 
@@ -156,20 +174,36 @@ async function initDashboard() {
   `;
 
   // Grafic simplu cu Chart.js
-  const { data: facturiAn } = await supabase.from('facturi').select('data, suma_bani')
-    .gte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-01-01`).lte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-12-31`);
-  const { data: cheltuieliAn } = await supabase.from('cheltuieli').select('data, suma_total_bani')
-    .gte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-01-01`).lte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-12-31`);
+  const { data: facturiAn } = await supabase.from('facturi')
+    .select('data, suma_bani')
+    .gte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-01-01`)
+    .lte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-12-31`);
+  const { data: cheltuieliAn } = await supabase.from('cheltuieli')
+    .select('data, suma_total_bani')
+    .gte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-01-01`)
+    .lte('data', `${CONFIG_FISCAL.FISCAL.anCurent}-12-31`);
 
-  const lunile = Array.from({length: 12}, (_, i) => new Date(CONFIG_FISCAL.FISCAL.anCurent, i, 1).toLocaleString('ro-RO', { month: 'short' }));
+  const lunile = Array.from({length: 12}, (_, i) =>
+    new Date(CONFIG_FISCAL.FISCAL.anCurent, i, 1).toLocaleString('ro-RO', { month: 'short' })
+  );
   const venituri = new Array(12).fill(0);
   const cheltuieliArr = new Array(12).fill(0);
-  facturiAn?.forEach(f => { const m = new Date(f.data).getMonth(); venituri[m] += f.suma_bani; });
-  cheltuieliAn?.forEach(c => { const m = new Date(c.data).getMonth(); cheltuieliArr[m] += c.suma_total_bani; });
+  facturiAn?.forEach(f => {
+    const m = new Date(f.data).getMonth();
+    venituri[m] += f.suma_bani;
+  });
+  cheltuieliAn?.forEach(c => {
+    const m = new Date(c.data).getMonth();
+    cheltuieliArr[m] += c.suma_total_bani;
+  });
 
   const ctx = document.getElementById('chart-venituri-cheltuieli')?.getContext('2d');
   if (ctx && window.Chart) {
-    new Chart(ctx, {
+    // Distruge graficul anterior dacă există
+    if (currentChart) {
+      currentChart.destroy();
+    }
+    currentChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: lunile,
@@ -268,7 +302,7 @@ function downloadBlob(blob, filename, mimeType) {
   URL.revokeObjectURL(url);
 }
 
-// Criptare cu Web Crypto API
+// Criptare cu Web Crypto API (AES-GCM)
 async function encryptData(plainText, password) {
   const enc = new TextEncoder();
   const keyMaterial = await crypto.subtle.importKey(

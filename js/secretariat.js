@@ -68,7 +68,6 @@ async function incarcaSecretariat() {
           <td>${s.obiect}</td>
           <td>${s.referinta_document || '-'}</td>
           <td>${s.atasament_path ? `<button class="btn btn-secondary btn-sm" onclick="window.open('${getSignedUrl(s.atasament_path)}')">Deschide</button>` : '-'}</td>
-          <td><button class="btn btn-danger btn-sm" onclick="stergeSecretariat('${s.id}')">Șterge</button></td>
         </tr>
       `).join('')}
     </tbody>`;

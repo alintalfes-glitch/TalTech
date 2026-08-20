@@ -1,4 +1,4 @@
-// Modul facturi emise
+// js/facturi.js – Modul facturi emise
 function initFacturi() {
   const tab = document.getElementById('tab-facturi');
   tab.innerHTML = `
@@ -64,7 +64,6 @@ function initFacturi() {
 }
 
 async function incarcaFacturi() {
-  const user = (await supabase.auth.getUser()).data.user;
   const filtruClient = document.getElementById('factura-filtru-client')?.value?.toLowerCase() || '';
   const filtruStatus = document.getElementById('factura-filtru-status')?.value || '';
   let query = supabase.from('facturi').select('*').order('data', { ascending: false }).order('numar', { ascending: false });
@@ -98,7 +97,7 @@ async function incarcaFacturi() {
         </tr>
       `).join('')}
     </tbody>`;
-  tbody.innerHTML += `</tbody>`;
+  // tbody.innerHTML += `</tbody>`; // This was wrong before; we fixed it now.
 
   const totaluri = data.reduce((acc, f) => {
     if (f.status === 'plătită') acc.incasat += f.suma_bani;
@@ -114,6 +113,7 @@ async function incarcaFacturi() {
 async function salveazaFactura(e) {
   e.preventDefault();
   const user = (await supabase.auth.getUser()).data.user;
+  if (!user) { showToast('Utilizator neautentificat', 'danger'); return; }
   const client = document.getElementById('factura-client').value.trim();
   const data = document.getElementById('factura-data').value;
   const serviciu = document.getElementById('factura-serviciu').value.trim();
@@ -175,15 +175,21 @@ async function editeazaFactura(id) {
 }
 
 async function stergeFactura(id) {
+  console.log('Ștergere factură cu id:', id);
   if (!confirm('Sigur ștergi factura?')) return;
   const { error } = await supabase.from('facturi').delete().eq('id', id);
-  if (error) showToast('Eroare ștergere: ' + error.message, 'danger');
-  else { showToast('Factură ștearsă', 'success'); incarcaFacturi(); }
+  if (error) {
+    showToast('Eroare ștergere: ' + error.message, 'danger');
+    console.error('Eroare la ștergere:', error);
+  } else {
+    showToast('Factură ștearsă', 'success');
+    incarcaFacturi();
+  }
 }
 
 async function exportPDFFactura(id) {
   const { data: factura, error } = await supabase.from('facturi').select('*').eq('id', id).single();
-  if (error || !factura) return;
+  if (error || !factura) { showToast('Factura nu a fost găsită', 'danger'); return; }
   const doc = new window.jspdf.jsPDF();
   const pfa = CONFIG_FISCAL.PFA;
   doc.setFontSize(14);
@@ -203,12 +209,23 @@ async function exportPDFFactura(id) {
 }
 
 function exportCSVFacturi() {
-  // Implementare similară cu exportCSVGeneric
+  // Obține datele din tabelul afișat
+  const rows = document.querySelectorAll('#tabel-facturi tbody tr');
+  if (!rows.length) { showToast('Nu există facturi de exportat', 'warning'); return; }
+  let csv = 'Serie/Numar,Data,Client,Serviciu,Suma (lei),Status,Reconciliat\n';
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    if (cells.length >= 7) {
+      csv += `${cells[0].textContent},${cells[1].textContent},${cells[2].textContent},${cells[3].textContent},${cells[4].textContent},${cells[5].textContent},${cells[6].textContent}\n`;
+    }
+  });
+  downloadBlob(new Blob([csv], { type: 'text/csv' }), 'facturi.csv', 'text/csv');
 }
 
 async function genereazaXMLSiDescarca(id) {
+  console.log('Generare XML pentru factura cu id:', id);
   const { data: factura, error } = await supabase.from('facturi').select('*').eq('id', id).single();
-  if (error || !factura) return;
+  if (error || !factura) { showToast('Factura nu a fost găsită', 'danger'); return; }
   const xml = genereazaXMLFactura(factura);
   const errors = validareXMLBestEffort(xml);
   if (errors.length > 0) {

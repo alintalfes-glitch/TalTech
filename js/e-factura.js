@@ -142,3 +142,9 @@ async function incarcaListaFacturiEfactura() {
       `).join('')}
     </tbody>`;
 }
+// Inițializare tab e-Factura
+function initEfactura() {
+  // Funcția incarcaListaFacturiEfactura construiește conținutul tab-ului
+  // și încarcă datele, deci o apelăm direct.
+  incarcaListaFacturiEfactura();
+}

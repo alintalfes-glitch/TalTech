@@ -7,7 +7,13 @@
     box-sizing: border-box;
 }
 
+/* Asigură că elementele cu atributul hidden sunt ascunse, indiferent de alte reguli */
+[hidden] {
+    display: none !important;
+}
+
 :root {
+    /* Light Mode */
     --bg-start: #F8F1E9;
     --bg-end: #E8F1F8;
     --bg-card: #FFFFFF;

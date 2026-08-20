@@ -106,3 +106,39 @@ async function descarcaSauCopiazaXML(xmlString, filename) {
     showToast('XML copiat în clipboard', 'success');
   }
 }
+// Încarcă lista de facturi pentru tab-ul e-Factura
+async function incarcaListaFacturiEfactura() {
+  const tab = document.getElementById('tab-efactura');
+  tab.innerHTML = `
+    <div class="card">
+      <h3>Facturi pentru e-Factura</h3>
+      <p class="alert alert-warning">
+        Termen transmitere: ${CONFIG_FISCAL.EFACTURA.termenTransmitereZileLucratoare} zile lucrătoare.
+        ${CONFIG_FISCAL.EFACTURA.obligatiePFA ? 'Obligația se aplică și PFA-urilor identificate prin CNP (Legea 88/2026, OG 6/2026).' : ''}
+        Validarea finală este la ANAF; aplicația nu se conectează la SPV. Uploadul se face manual.
+      </p>
+      <div style="overflow-x:auto;"><table id="tabel-efactura"></table></div>
+    </div>
+  `;
+
+  const { data, error } = await supabase.from('facturi').select('*').order('data', { ascending: false });
+  if (error) return;
+
+  const tbody = document.querySelector('#tabel-efactura');
+  tbody.innerHTML = `
+    <thead><tr>
+      <th>Serie/Număr</th><th>Data</th><th>Client</th><th>Sumă</th><th>Status XML</th><th>Acțiune</th>
+    </tr></thead>
+    <tbody>
+      ${data.map(f => `
+        <tr>
+          <td>${f.serie}${f.numar}</td>
+          <td>${f.data}</td>
+          <td>${f.client}</td>
+          <td>${formatBani(f.suma_bani)}</td>
+          <td>Nedescărcat</td>
+          <td><button class="btn btn-secondary btn-sm" onclick="genereazaXMLSiDescarca('${f.id}')">Generează XML</button></td>
+        </tr>
+      `).join('')}
+    </tbody>`;
+}

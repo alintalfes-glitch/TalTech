@@ -1,4 +1,3 @@
-/* ========== RESET & VARIABILE ========== */
 *,
 *::before,
 *::after {
@@ -7,13 +6,11 @@
     box-sizing: border-box;
 }
 
-/* Asigură că elementele cu atributul hidden sunt ascunse, indiferent de alte reguli */
 [hidden] {
     display: none !important;
 }
 
 :root {
-    /* Light Mode */
     --bg-start: #F8F1E9;
     --bg-end: #E8F1F8;
     --bg-card: #FFFFFF;
@@ -28,6 +25,7 @@
     --accent-rgb: 232,155,45;
     --blue-rgb: 59,130,246;
     --green-rgb: 16,185,129;
+    --orange-rgb: 245,158,11;
     --border-light: #E2E8F0;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
@@ -55,6 +53,7 @@
     --accent-rgb: 232,155,45;
     --blue-rgb: 96,165,250;
     --green-rgb: 52,211,153;
+    --orange-rgb: 251,191,36;
     --border-light: #2d2d2d;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
@@ -93,6 +92,19 @@ body {
     cursor: auto;
 }
 
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--bg-card);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 700;
@@ -118,7 +130,6 @@ img {
     padding: 0 20px;
 }
 
-/* ========== CLASE GENERALE ========== */
 .section {
     padding: 80px 0;
     scroll-margin-top: 80px;
@@ -204,7 +215,6 @@ img {
     box-shadow: 0 8px 20px rgba(37,211,102,0.4);
 }
 
-/* ========== LOADER ========== */
 .loader {
     position: fixed;
     top: 0;
@@ -237,7 +247,6 @@ img {
     to { transform: rotate(360deg); }
 }
 
-/* ========== CUSTOM CURSOR ========== */
 .custom-cursor {
     position: fixed;
     width: 20px;
@@ -267,7 +276,6 @@ img {
     }
 }
 
-/* ========== ANIMAȚII LA SCROLL ========== */
 .hidden {
     opacity: 0;
     transform: translateY(30px);
@@ -279,7 +287,16 @@ img {
     transform: translateY(0);
 }
 
-/* ========== NAVBAR ========== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 1001;
+}
+
 #navbar {
     position: fixed;
     top: 0;
@@ -440,7 +457,6 @@ img {
     transform: scale(1.1);
 }
 
-/* Hamburger */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -471,7 +487,6 @@ img {
     transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ========== HERO ========== */
 .hero {
     min-height: 100vh;
     min-height: 100svh;
@@ -528,6 +543,19 @@ img {
     color: var(--text-primary);
 }
 
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    background: var(--accent);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 .hero-text {
     font-size: 1.25rem;
     color: var(--text-secondary);
@@ -573,7 +601,6 @@ img {
     color: var(--text-secondary);
 }
 
-/* ========== TRUST BAR ========== */
 .trust-bar {
     padding: 30px 0;
     background: var(--bg-card);
@@ -600,7 +627,6 @@ img {
     color: var(--text-muted);
 }
 
-/* ========== DE CE TALTECH ========== */
 .reasons-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -636,10 +662,9 @@ img {
     color: var(--text-secondary);
 }
 
-/* ========== SERVICII ========== */
 .services-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -680,6 +705,11 @@ img {
     background: rgba(var(--green-rgb), 0.1);
 }
 
+.service-icon--orange {
+    color: var(--orange);
+    background: rgba(var(--orange-rgb), 0.1);
+}
+
 .service-card h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
@@ -713,7 +743,6 @@ img {
     background: rgba(var(--accent-rgb), 0.15);
 }
 
-/* ========== OFERTĂ SPECIALĂ ========== */
 .section-offer {
     background: var(--bg-card);
 }
@@ -741,7 +770,6 @@ img {
     color: var(--accent);
 }
 
-/* ========== DESPRE ========== */
 .about-container {
     max-width: 800px;
     margin: 0 auto;
@@ -820,7 +848,6 @@ img {
     border: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
-/* ========== PORTOFOLIU ========== */
 .portfolio-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -847,6 +874,7 @@ img {
     width: 100%;
     height: 200px;
     overflow: hidden;
+    cursor: zoom-in;
 }
 
 .portfolio-image img {
@@ -911,7 +939,6 @@ img {
     color: #fff;
 }
 
-/* ========== PROCES ========== */
 .process-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -975,7 +1002,6 @@ img {
     color: var(--text-secondary);
 }
 
-/* ========== TESTIMONIALE ========== */
 .testimonial-slider {
     position: relative;
     max-width: 800px;
@@ -1065,7 +1091,6 @@ img {
     right: 0;
 }
 
-/* ========== FAQ ========== */
 .faq-list {
     max-width: 700px;
     margin: 0 auto;
@@ -1126,7 +1151,6 @@ img {
     color: var(--text-secondary);
 }
 
-/* ========== NEWSLETTER ========== */
 .newsletter-content {
     display: flex;
     gap: 10px;
@@ -1149,7 +1173,6 @@ img {
     border-color: var(--accent);
 }
 
-/* ========== CONTACT ========== */
 .contact-container {
     text-align: center;
 }
@@ -1214,7 +1237,6 @@ img {
     border-radius: 8px;
 }
 
-/* ========== MINI-BLOG ========== */
 .blog-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1244,7 +1266,6 @@ img {
     font-weight: 600;
 }
 
-/* ========== FOOTER ========== */
 .footer {
     background: var(--footer-bg);
     backdrop-filter: blur(12px);
@@ -1275,7 +1296,6 @@ img {
     color: var(--accent);
 }
 
-/* ========== FLOATING BUTTONS ========== */
 .whatsapp-float {
     position: fixed;
     bottom: 30px;
@@ -1372,7 +1392,39 @@ img {
     white-space: nowrap;
 }
 
-/* ========== THANKS OVERLAY ========== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.lightbox-close:hover {
+    color: var(--accent);
+}
+
 .thanks-overlay {
     position: fixed;
     top: 0;
@@ -1402,7 +1454,6 @@ img {
     margin-bottom: 20px;
 }
 
-/* ========== ACCESIBILITATE ========== */
 .btn:focus-visible,
 .nav-link:focus-visible,
 .theme-toggle:focus-visible,
@@ -1429,11 +1480,7 @@ img {
     outline: none;
 }
 
-/* ========== RESPONSIVE ========== */
 @media screen and (min-width: 480px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
     .reasons-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1448,9 +1495,6 @@ img {
 @media screen and (min-width: 768px) {
     .hero-title {
         font-size: 4rem;
-    }
-    .services-grid {
-        grid-template-columns: repeat(3, 1fr);
     }
     .reasons-grid {
         grid-template-columns: repeat(4, 1fr);
@@ -1478,7 +1522,6 @@ img {
     }
 }
 
-/* ========== MOBILE SPECIFIC ========== */
 @media screen and (max-width: 767px) {
     .hamburger {
         display: flex;
@@ -1614,7 +1657,6 @@ img {
     }
 }
 
-/* Pentru ecrane foarte mici */
 @media screen and (max-width: 360px) {
     .hero-title {
         font-size: 2rem;
@@ -1643,7 +1685,6 @@ img {
     }
 }
 
-/* ========== PREFERS-REDUCED-MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

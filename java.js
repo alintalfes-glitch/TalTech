@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Selectori principali
+    // Selectori
     const navbar = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
@@ -179,14 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open('https://wa.me/alin.talfes', '_blank', 'noopener');
     });
 
-    // Formular contact
+    // Formular contact - corectat pentru a nu rămâne mesajul permanent
     contactForm?.addEventListener('submit', (e) => {
         e.preventDefault();
-        // PLACEHOLDER: integrează cu Formspree sau alt serviciu
-        thanksOverlay.hidden = false;
+        // Ascunde overlay-ul dacă era vizibil (de la o trimitere anterioară)
+        thanksOverlay.hidden = true;
+        // Afișează mesajul de succes temporar
+        formSuccess.hidden = false;
         contactForm.reset();
-        formSuccess.hidden = true;
+        // Ascunde mesajul după 5 secunde
+        setTimeout(() => {
+            formSuccess.hidden = true;
+        }, 5000);
+        // Nu mai afișăm overlay-ul de mulțumire, doar mesajul inline
     });
+
     thanksClose?.addEventListener('click', () => { thanksOverlay.hidden = true; });
 
     // Newsletter
@@ -203,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Programare întâlnire
     scheduleBtn?.addEventListener('click', (e) => {
         e.preventDefault();
-        // PLACEHOLDER: integrează Calendly sau alt serviciu
         alert('Programarea întâlnirilor va fi disponibilă în curând.');
     });
 
@@ -211,13 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadCv = document.getElementById('download-cv');
     downloadCv?.addEventListener('click', (e) => {
         e.preventDefault();
-        // PLACEHOLDER: înlocuiește cu linkul către fișierul PDF
         alert('Fișierul CV/Portofoliu va fi disponibil în curând.');
     });
 
     // Comutator limbă
     langToggle?.addEventListener('click', () => {
-        // PLACEHOLDER: implementează traducerea RO/EN
         alert('Versiunea în limba engleză va fi disponibilă în curând.');
     });
 

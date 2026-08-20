@@ -5,139 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard PFA – Administrare</title>
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
-  <link rel="stylesheet" href="style.css">   <!-- stilul general al site-ului de prezentare -->
-  <link rel="stylesheet" href="admin.css">   <!-- stilurile specifice dashboard-ului -->
-  <style>
-    /* Stiluri specifice dashboard – pot fi mutate în style.css */
-    :root {
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #1e293b;
-      --primary: #2563eb;
-      --sidebar-bg: #1e293b;
-      --sidebar-text: #e2e8f0;
-    }
-    .dark-mode {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #e2e8f0;
-      --primary: #3b82f6;
-      --sidebar-bg: #0f172a;
-      --sidebar-text: #cbd5e1;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      min-height: 100vh;
-    }
-    .sidebar {
-      width: 250px;
-      background: var(--sidebar-bg);
-      color: var(--sidebar-text);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      height: 100%;
-      z-index: 100;
-      transition: transform 0.3s;
-    }
-    .sidebar h2 { margin-bottom: 1rem; }
-    .sidebar ul { list-style: none; }
-    .sidebar li { margin: 0.25rem 0; }
-    .sidebar a {
-      color: inherit;
-      text-decoration: none;
-      display: block;
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.375rem;
-    }
-    .sidebar a.active, .sidebar a:hover { background: rgba(255,255,255,0.1); }
-    .main {
-      margin-left: 250px;
-      flex: 1;
-      padding: 1rem;
-      transition: margin-left 0.3s;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    .hamburger { display: none; font-size: 1.5rem; background: none; border: none; color: inherit; cursor: pointer; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .card {
-      background: var(--card);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-    th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid #ddd; }
-    th { background: rgba(0,0,0,0.03); }
-    .btn {
-      display: inline-block;
-      padding: 0.375rem 0.75rem;
-      border: none;
-      border-radius: 0.25rem;
-      background: var(--primary);
-      color: white;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 0.875rem;
-    }
-    .btn-secondary { background: #64748b; }
-    .btn-danger { background: #dc2626; }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.25rem 0 0.75rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 0.25rem;
-      background: var(--card);
-      color: var(--text);
-    }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .alert { padding: 0.75rem; border-radius: 0.375rem; margin: 0.5rem 0; }
-    .alert-warning { background: #fef9c3; color: #854d0e; }
-    .alert-danger { background: #fee2e2; color: #991b1b; }
-    .badge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; }
-    .badge-success { background: #dcfce7; color: #166534; }
-    .badge-warning { background: #fef9c3; color: #854d0e; }
-    .badge-danger { background: #fee2e2; color: #991b1b; }
-    .login-screen {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      z-index: 200;
-    }
-    .login-box {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 0.5rem;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    @media (max-width: 768px) {
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); }
-      .main { margin-left: 0; }
-      .hamburger { display: block; }
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    }
-  </style>
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-hashes' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
   <div id="login-screen" class="login-screen" style="display:none;">
@@ -181,9 +50,9 @@
     <main class="main">
       <div class="topbar">
         <button class="hamburger" id="hamburger">☰</button>
-        <div>
+        <div class="user-info">
           <span id="user-email"></span>
-          <span id="last-sync" style="margin-left:1rem; font-size:0.85rem; color:#64748b;"></span>
+          <span id="last-sync" style="font-size:0.85rem; color:#64748b;"></span>
         </div>
         <button id="btn-logout" class="btn btn-secondary">Logout</button>
       </div>
@@ -202,21 +71,21 @@
     </main>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-<script src="js/config-fiscal.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/app.js"></script>
-<script src="js/e-factura.js"></script>
-<script src="js/facturi.js"></script>
-<script src="js/cheltuieli.js"></script>
-<script src="js/registru.js"></script>
-<script src="js/extrase.js"></script>
-<script src="js/contracte.js"></script>
-<script src="js/declaratie.js"></script>
-<script src="js/documente.js"></script>
-<script src="js/secretariat.js"></script>
+  <script src="js/config-fiscal.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/e-factura.js"></script>
+  <script src="js/facturi.js"></script>
+  <script src="js/cheltuieli.js"></script>
+  <script src="js/registru.js"></script>
+  <script src="js/extrase.js"></script>
+  <script src="js/contracte.js"></script>
+  <script src="js/declaratie.js"></script>
+  <script src="js/documente.js"></script>
+  <script src="js/secretariat.js"></script>
 </body>
 </html>

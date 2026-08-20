@@ -59,7 +59,6 @@ async function incarcaDocumente() {
             <td>${d.atasament_path ? `<button class="btn btn-secondary btn-sm" onclick="window.open('${getSignedUrl(d.atasament_path)}')">Deschide</button>` : '-'}</td>
             <td>${d.perioada_pastrare_ani} ani</td>
             <td><span class="badge ${status === 'activ' ? 'badge-success' : status === 'aproape de expirare' ? 'badge-warning' : 'badge-danger'}">${status}</span></td>
-            <td><button class="btn btn-danger btn-sm" onclick="stergeDocument('${d.id}')">Șterge</button></td>
           </tr>`;
       }).join('')}
     </tbody>`;

@@ -51,7 +51,6 @@ async function incarcaExtrase() {
           <td>${ex.factura_id ? 'Factură' : ex.cheltuiala_id ? 'Cheltuială' : '-'}</td>
           <td>${ex.reconciliat ? 'Da' : 'Nu'}</td>
           <td><button class="btn btn-secondary btn-sm" onclick="marcheazaReconciliat('${ex.id}')">Reconciliază</button>
-              <button class="btn btn-danger btn-sm" onclick="stergeExtras('${ex.id}')">Șterge</button></td>
         </tr>
       `).join('')}
     </tbody>`;

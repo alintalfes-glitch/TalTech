@@ -69,7 +69,6 @@ async function incarcaContracte() {
           <td>${c.data_end}</td>
           <td><span class="badge ${c.status === 'activ' ? 'badge-success' : 'badge-danger'}">${c.status}</span></td>
           <td>${c.atasament_path ? `<button class="btn btn-secondary btn-sm" onclick="window.open('${getSignedUrl(c.atasament_path)}')">Deschide</button>` : '-'}</td>
-          <td><button class="btn btn-danger btn-sm" onclick="stergeContract('${c.id}')">Șterge</button></td>
         </tr>
       `).join('')}
     </tbody>`;

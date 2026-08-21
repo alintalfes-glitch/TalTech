@@ -3,24 +3,42 @@ let activeTab = 'dashboard';
 let currentChart = null; // stocăm graficul Chart.js pentru distrugere ulterioară
 
 function initNavigation() {
-  const links = document.querySelectorAll('#nav-menu a[data-tab]');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
+  // Creăm un singur event listener delegat pentru întreaga pagină
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
+
+    // Click pe hamburger: toggle meniu
+    if (hamburger && target.closest('#hamburger')) {
+      e.stopPropagation();
+      sidebar.classList.toggle('open');
+      return;
+    }
+
+    // Click pe un link de navigare
+    const navLink = target.closest('#nav-menu a[data-tab]');
+    if (navLink) {
       e.preventDefault();
-      const tab = link.dataset.tab;
+      const tab = navLink.dataset.tab;
       switchTab(tab);
-    });
-  });
+      return;
+    }
 
-  document.getElementById('hamburger').addEventListener('click', (e) => {
-    e.stopPropagation(); // evită închiderea imediată din listenerul de document
-    document.getElementById('sidebar').classList.toggle('open');
-  });
+    // Click pe butonul de backup/restore
+    if (target.closest('#btn-backup')) {
+      exportJSONBackup();
+      return;
+    }
+    if (target.closest('#btn-restore')) {
+      document.getElementById('restore-file-input').click();
+      return;
+    }
 
-  // Backup / Restore
-  document.getElementById('btn-backup').addEventListener('click', exportJSONBackup);
-  document.getElementById('btn-restore').addEventListener('click', () => {
-    document.getElementById('restore-file-input').click();
+    // Click în afara sidebar-ului: închide meniul (doar dacă e deschis)
+    if (sidebar.classList.contains('open') && !sidebar.contains(target)) {
+      sidebar.classList.remove('open');
+    }
   });
 
   // Input ascuns pentru restore
@@ -31,19 +49,6 @@ function initNavigation() {
   input.style.display = 'none';
   input.addEventListener('change', importJSONBackup);
   document.body.appendChild(input);
-
-  // Închide meniul lateral când se face click în afara lui
-  document.addEventListener('click', (e) => {
-    const sidebar = document.getElementById('sidebar');
-    const hamburger = document.getElementById('hamburger');
-    if (
-      sidebar.classList.contains('open') &&
-      !sidebar.contains(e.target) &&
-      !hamburger.contains(e.target)
-    ) {
-      sidebar.classList.remove('open');
-    }
-  });
 }
 
 function switchTab(tab) {

@@ -12,7 +12,8 @@ function initNavigation() {
     });
   });
 
-  document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('hamburger').addEventListener('click', (e) => {
+    e.stopPropagation(); // evită închiderea imediată din listenerul de document
     document.getElementById('sidebar').classList.toggle('open');
   });
 
@@ -30,9 +31,26 @@ function initNavigation() {
   input.style.display = 'none';
   input.addEventListener('change', importJSONBackup);
   document.body.appendChild(input);
+
+  // Închide meniul lateral când se face click în afara lui
+  document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
+    if (
+      sidebar.classList.contains('open') &&
+      !sidebar.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      sidebar.classList.remove('open');
+    }
+  });
 }
 
 function switchTab(tab) {
+  // Închide meniul lateral pe mobil
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) sidebar.classList.remove('open');
+
   activeTab = tab;
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   const target = document.getElementById(`tab-${tab}`);
@@ -86,7 +104,7 @@ function stergeDraft(key) {
 
 function showToast(msg, type = 'success') {
   const div = document.createElement('div');
-  div.className = `alert ${type === 'danger' ? 'alert-danger' : 'alert-warning'}`;
+  div.className = `alert ${type === 'danger' ? 'alert-danger' : type === 'warning' ? 'alert-warning' : 'alert-success'} toast`;
   div.textContent = msg;
   div.style.position = 'fixed';
   div.style.top = '1rem';
@@ -208,8 +226,8 @@ async function initDashboard() {
       data: {
         labels: lunile,
         datasets: [
-          { label: 'Venituri (lei)', data: venituri.map(v => v / 100), backgroundColor: '#2563eb' },
-          { label: 'Cheltuieli (lei)', data: cheltuieliArr.map(c => c / 100), backgroundColor: '#dc2626' }
+          { label: 'Venituri (lei)', data: venituri.map(v => v / 100), backgroundColor: '#6366f1' },
+          { label: 'Cheltuieli (lei)', data: cheltuieliArr.map(c => c / 100), backgroundColor: '#ef4444' }
         ]
       },
       options: { responsive: true, scales: { y: { beginAtZero: true } } }
@@ -275,14 +293,12 @@ async function importJSONBackup(event) {
         if (!rows.length) continue;
         const allowed = ['facturi', 'cheltuieli', 'extrase', 'contracte', 'declaratii', 'documente', 'secretariat'];
         if (!allowed.includes(table)) continue;
-        // Curățare date existente? Mai sigur upsert cu onConflict
         for (const row of rows) {
           const { error } = await supabase.from(table).upsert(row, { onConflict: 'id' });
           if (error) console.error(`Eroare import ${table}:`, error);
         }
       }
       showToast('Restaurare completă!', 'success');
-      // Reîncarcă dashboard
       initDashboard();
     } catch (err) {
       showToast('Eroare import: ' + err.message, 'danger');
@@ -322,7 +338,6 @@ async function encryptData(plainText, password) {
     key,
     enc.encode(plainText)
   );
-  // Structură: [salt(16)][iv(12)][ciphertext]
   const combined = new Uint8Array(salt.length + iv.length + ciphertext.byteLength);
   combined.set(salt, 0);
   combined.set(iv, salt.length);

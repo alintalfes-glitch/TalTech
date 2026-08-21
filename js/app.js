@@ -1,8 +1,13 @@
 // js/app.js – Utilitare globale, navigare, dashboard, backup/restore
 let activeTab = 'dashboard';
-let currentChart = null; // stocăm graficul Chart.js pentru distrugere ulterioară
+let currentChart = null;
+let navigationInitialized = false; // flag pentru a preveni dublarea listenerelor
 
 function initNavigation() {
+  // Previne adăugarea duplicată a listenerelor la apeluri multiple
+  if (navigationInitialized) return;
+  navigationInitialized = true;
+
   // Creăm un singur event listener delegat pentru întreaga pagină
   document.addEventListener('click', (e) => {
     const target = e.target;

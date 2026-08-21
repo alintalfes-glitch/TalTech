@@ -1,5 +1,5 @@
 /* ==========================================
-   PFA Dashboard – Design Premium Modern
+   PFA Dashboard – Stiluri complete și moderne
    ========================================== */
 
 /* ---------- Import font ---------- */
@@ -7,7 +7,7 @@
 
 /* ---------- Variabile globale (light mode) ---------- */
 :root {
-  --bg: #f1f5f9;
+  --bg: #f8fafc;
   --card: #ffffff;
   --text: #0f172a;
   --text-secondary: #64748b;
@@ -298,6 +298,7 @@ body {
   width: 100%;
 }
 
+/* ---------- Main ---------- */
 .main {
   margin-left: 260px;
   flex: 1;
@@ -325,6 +326,8 @@ body {
   padding: 0.5rem;
   border-radius: var(--radius);
   transition: background var(--transition);
+  z-index: 101;
+  position: relative;
 }
 
 .hamburger:hover {
@@ -711,14 +714,7 @@ canvas {
   max-width: 800px;
 }
 
-/* ---------- Responsivitate ---------- */
-@media (max-width: 1024px) {
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
+/* ---------- Responsivitate – Hamburger fix ---------- */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -736,7 +732,7 @@ canvas {
   }
 
   .hamburger {
-    display: block;
+    display: block !important;
   }
 
   .topbar {

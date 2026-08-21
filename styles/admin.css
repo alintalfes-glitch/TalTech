@@ -328,6 +328,7 @@ body {
   transition: background var(--transition);
   z-index: 101;
   position: relative;
+  touch-action: manipulation; /* previne zoom-ul pe mobil */
 }
 
 .hamburger:hover {

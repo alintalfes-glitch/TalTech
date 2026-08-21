@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard PFA – Administrare</title>
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-hashes' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
-  <link rel="stylesheet" href="styles/admin.css">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-hashes' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net; base-uri 'self'; form-action 'self';">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
+  <!-- Ecran de login (inițial ascuns, afișat de JS dacă nu e sesiune) -->
   <div id="login-screen" class="login-screen" style="display:none;">
     <div class="login-box">
       <h2>Autentificare PFA</h2>
@@ -27,7 +28,9 @@
     </div>
   </div>
 
+  <!-- Aplicația principală -->
   <div id="app" style="display:flex; width:100%;">
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <h2>PFA Dashboard</h2>
       <ul id="nav-menu">
@@ -48,12 +51,13 @@
       </div>
     </aside>
 
+    <!-- Conținut principal -->
     <main class="main">
       <div class="topbar">
-        <button class="hamburger" id="hamburger">☰</button>
+        <button class="hamburger" id="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
         <div class="user-info">
-          <span id="user-email"></span>
-          <span id="last-sync" style="font-size:0.85rem; color:#64748b;"></span>
+          <span id="user-email" class="user-email"></span>
+          <span id="last-sync" class="last-sync"></span>
         </div>
         <button id="btn-logout" class="btn btn-secondary">Logout</button>
       </div>
@@ -72,10 +76,12 @@
     </main>
   </div>
 
+  <!-- Scripturi CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
+  <!-- Module aplicație -->
   <script src="js/config-fiscal.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
